@@ -14,7 +14,7 @@ class Pizza(db.Model):
     name = db.Column(db.String())
     ingredients = db.Column(db.String())
 
-    RestaurantPizza = db.relationship('restaurantpizza', back_populates="pizza", cascade='all, delete-orphan')
+    RestaurantPizza = db.relationship('restaurantpizza', back_populates="pizza")
 
     def __repr__(self):
         return f'<{self.id}, {self.name}, {self.ingredients}'
