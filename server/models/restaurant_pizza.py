@@ -19,7 +19,5 @@ class RestaurantPizza(db.Model):
             raise ValueError("Price must be between 1 and 30")
         return value
     
-    __table_args__ = (CheckConstraint('price >= 1 AND price <=30', name='check_price_range'))
-
     def __repr__(self):
         return f'<{self.id}, Price:{self.price}, Restaurant:{self.restaurant_id}, Pizza:{self.pizza_id}>'
