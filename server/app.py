@@ -4,6 +4,8 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
 
+import psycopg2
+
 from server.models import db
 from server.controllers import register_all_routes
 
