@@ -1,6 +1,8 @@
 from . import db
+from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy_serializer import SerializerMixin
 
-class Restaurant(db.Model):
+class Restaurant(db.Model, SerializerMixin):
     __tablename__ = 'restaurants'
 
     id = db.Column(db.Integer(), primary_key=True)
@@ -8,6 +10,10 @@ class Restaurant(db.Model):
     address = db.Column(db.String())
 
     restaurant_pizza = db.relationship('RestaurantPizza', back_populates="restaurant", cascade='all, delete-orphan')
+
+    pizzas = association_proxy('restaurant-pizza', 'pizza')
+
+    serialization_rules = ('-restaurant_pizza.restaurant',)
 
     def to_dict(self):
         return {

@@ -1,8 +1,9 @@
 from sqlalchemy.orm import validates
 from sqlalchemy import CheckConstraint
 from . import db
+from sqlalchemy_serializer import SerializerMixin
 
-class RestaurantPizza(db.Model):
+class RestaurantPizza(db.Model, SerializerMixin):
     __tablename__ = "restaurant_pizzas"
 
     id = db.Column(db.Integer(), primary_key=True)
@@ -12,6 +13,8 @@ class RestaurantPizza(db.Model):
 
     pizza = db.relationship('Pizza', back_populates="restaurant_pizza")
     restaurant = db.relationship('Restaurant', back_populates="restaurant_pizza")
+
+    serialize_rules = ('-pizzas.restaurant_pizzas', '-restaurant.restaurant_pizza')
 
     @validates('price')
     def validate_price(self, key, value):
