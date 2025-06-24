@@ -19,7 +19,7 @@ def register_restaurant_routes(app):
 
     @app.route('/restaurants/<int:id>', methods=['GET', 'DELETE'])
     def restaurant_by_id(id):
-        restaurant = Restaurant.query.filter(Restaurant.id == id).first()
+        restaurant = Restaurant.query.get(id)
 
         if request.method == 'GET':
             if restaurant:
