@@ -6,6 +6,12 @@ from server.controllers import register_all_routes
 from dotenv import load_dotenv
 import os
 import psycopg2
+from server.controllers import (
+    get_restaurants,
+    restaurant_by_id,
+    get_pizzas,
+    post_restaurant_pizzas
+)
 
 load_dotenv()
 
@@ -15,11 +21,25 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("FLASK_SQLALCHEMY_DATABASE_URI
 db.init_app(app)
 migration = Migrate(app, db)
 
-register_all_routes(app)
+@app.route('/restaurants', methods=['GET'])
+def handle_get_restaurants():
+    return get_restaurants()
 
-@app.route('/')
-def index():
-    return "Index for Restaurant/pizza/restaurant pizza."
+@app.route('/restaurants/<int:id>', methods=['GET'])
+def handle_get_restaurant(id):
+    return restaurant_by_id(id)
+
+@app.route('/restaurants/<int:id>', methods=['DELETE'])
+def handle_delete_restaurant(id):
+    return restaurant_by_id(id)
+
+@app.route('/pizzas', methods=['GET'])
+def handle_get_pizzas():
+    return get_pizzas()
+
+@app.route('/restaurant_pizzas', methods=['POST'])
+def handle_create_restaurant_pizza():
+    return post_restaurant_pizzas()
 
 
 conn = psycopg2.connect(
