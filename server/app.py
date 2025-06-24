@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from models import db
+from server.models import db
 from flask_migrate import Migrate
-from controllers import register_all_routes
+from server.controllers import register_all_routes
 from dotenv import load_dotenv
 import os
 import psycopg2

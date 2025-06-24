@@ -1,5 +1,5 @@
 from flask import request, jsonify, make_response
-from models import Restaurant, db
+from server.models import Restaurant, db
 
 def register_restaurant_routes(app):
 

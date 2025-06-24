@@ -1,5 +1,5 @@
 from flask import jsonify, make_response
-from models import Pizza
+from server.models import Pizza
 
 def register_pizza_routes(app):
 
