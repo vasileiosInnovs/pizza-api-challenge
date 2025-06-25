@@ -9,18 +9,11 @@ class Restaurant(db.Model, SerializerMixin):
     name = db.Column(db.String())
     address = db.Column(db.String())
 
-    restaurant_pizza = db.relationship('RestaurantPizza', back_populates="restaurant", cascade='all, delete-orphan')
+    restaurant_pizzas = db.relationship('RestaurantPizza', back_populates="restaurant", cascade='all, delete-orphan')
 
-    pizzas = association_proxy('restaurant-pizza', 'pizza')
+    pizzas = association_proxy('restaurant_pizza', 'pizza')
 
     serialization_rules = ('-restaurant_pizza.restaurant',)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "address": self.address
-        }
 
     def __repr__(self):
         return f'<{self.id}, {self.name}, {self.address}>'

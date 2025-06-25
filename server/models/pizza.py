@@ -8,16 +8,9 @@ class Pizza(db.Model, SerializerMixin):
     name = db.Column(db.String())
     ingredients = db.Column(db.String())
 
-    restaurant_pizza = db.relationship('RestaurantPizza', back_populates="pizza")
+    restaurant_pizzas = db.relationship('RestaurantPizza', back_populates="pizza", cascade="all, delete-orphan")
     
-    serialize_rules = ('-restaurant_pizza.pizza',)
-
-    def to_dict(self):
-       return {
-           "id": self.id,
-           "name": self.name,
-           "ingredients": self.ingredients
-       }
+    serialize_rules = ('-restaurant_pizzas.pizza',)
 
     def __repr__(self):
         return f'<{self.id}, {self.name}, {self.ingredients}>'
